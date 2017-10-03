@@ -2,7 +2,7 @@
   "swagger": "2.0",
   
   "info" : {
-    "title" : "Enterprise Service Model API: Booking Questionaire",
+    "title" : "Booking Questionaire API",
     "description" : "A booking questionaire is given to those customers booking pre-cruise enhancements as part of the My Cruise application. The booking questionaire focuses on asking the customer (the responder) to rate each port call in their cruise as to its importance to them. The booking questionaire API provides endpoints to the My Cruise application and other consumers to both create a new questionaire instance or to retrieve a previously filled out questionaire.",
     
     "contact" : {
