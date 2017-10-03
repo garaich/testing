@@ -12,7 +12,7 @@
     "version" : "1.0.0" 
   },
   
-  "host" : "http://n2rlw.mocklab.io",
+  "host" : "n2rlw.mocklab.io",
   
   "schemes" : ["http"],
   
