@@ -1,0 +1,193 @@
+{
+  "swagger": "2.0",
+  
+  "info" : {
+    "title" : "Enterprise Service Model API: Booking Questionaire",
+    "description" : "A booking questionaire is given to those customers booking pre-cruise enhancements as part of the My Cruise application. The booking questionaire focuses on asking the customer (the responder) to rate each port call in their cruise as to its importance to them. The booking questionaire API provides endpoints to the My Cruise application and other consumers to both create a new questionaire instance or to retrieve a previously filled out questionaire.",
+    
+    "contact" : {
+      "email" : "api@ceat.com"
+    },
+    
+    "version" : "1.0.0" 
+  },
+  
+  "host" : "localhost:8080",
+  
+  "schemes" : ["http"],
+  
+  "basePath" : "/api/v1",
+  
+  "paths" : {
+  
+    "/booking-questionaires" : {
+    
+      "get" : {
+        "operationId" : "get-list",
+        
+        "description" : "",
+        
+        "produces" : ["application/vnd.ceat.booking-questionaire.v1+json"],
+        
+        "parameters" : [
+          {
+            "description" : "Specify the unique identifier of the booking for which the questionaire was filled out.",
+            "name" : "booking-id",
+            "type" : "string",
+            "in" : "query",
+            "required" : true
+          }
+        ],
+        
+        "responses" : {
+          "200" : {
+            "$ref" : "#/responses/200-list"   
+          },
+         
+          "default" : {
+            "$ref" : "#/responses/default"
+          }
+        }
+      },
+      
+      "post" : {
+        "operationId" : "create",
+        
+        "description" : "Allow a new questionaire to be created. The server will generate a new identifier and return it to the consumer in the Location header.",
+        
+        "consumes" : ["application/vnd.ceat.booking-questionaire.v1+json"],
+        
+        "parameters" : [
+          {
+            "description" : "",
+            "name" : "booking-questionaire",
+            "in" : "body",
+            "required" : true,
+            "schema" : {
+              "$ref" : "#/definitions/booking-questionaire"
+            }
+          }
+        ],
+        
+        "responses" : {
+          "201" : {
+            "$ref" : "#/responses/201"   
+          },
+         
+          "default" : {
+            "$ref" : "#/responses/default"
+          }
+        }
+      },
+      
+      "put" : {
+          "operationId" : "replace-list",
+          "description" : "This endpoint is not supported, a 405 status code is returned.",
+          
+          "responses" : {
+            "405" : {
+              "$ref" : "#/responses/405-list"
+            }
+          }
+      },
+      
+      "patch" : {
+          "operationId" : "update-list",
+          "description" : "This endpoint is not supported, a 405 status code is returned.",
+          
+          "responses" : {
+            "405" : {
+              "$ref" : "#/responses/405-list"
+            }
+          }
+      },
+            
+      "delete" : {
+          "operationId" : "delete-list",
+          "description" : "This endpoint is not supported, a 405 status code is returned.",
+          
+          "responses" : {
+            "405" : {
+              "$ref" : "#/responses/405-list"
+            }
+          }
+      }     
+    }
+  },
+
+  "responses" : {
+    "200-list" : {
+      "description" : "200 OK",
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/definitions/booking-questionaire"}
+      },
+      "examples" : {"id" : "4c4de3ff-664a-4287-8b14-103544db51d3", "name" : "My Booking Questionaire"}
+    },
+    
+    "200" : {
+      "description" : "200 OK",
+      "schema" : {
+        "$ref" : "#/definitions/booking-questionaire"
+      },
+      "examples" : {"id" : "4c4de3ff-664a-4287-8b14-103544db51d3", "name" : "My Booking Questionaire"}
+    },
+    
+    "201" : {
+      "description" : "201 Created",
+      "schema" : {
+        "$ref" : "#/definitions/booking-questionaire"
+      },
+      
+      "examples" : {"id" : "4c4de3ff-664a-4287-8b14-103544db51d3", "name" : "My Booking Questionaire"},
+      
+      "headers" : {
+        "Location" : {
+          "description" : "Contains the identifier of the newly created resource",
+          "type" : "string"
+        }
+      }
+    },
+    
+    "204" : {
+      "description" : "204 No Content"
+    },
+    
+    "405-list" : {
+      "description" : "405, Not Allowed",
+      "headers" : {
+        "Allow" : {
+          "description" : "Describes the allowed verbs for the collection",
+          "type" : "string",
+          "enum" : [
+            "GET", "POST"
+          ] 
+        }
+      }
+    },
+    
+    "default" : {
+      "description" : "An unexpected fault has occurred",
+      "schema" : {"$ref" : "#/definitions/fault"},
+      "examples" : {
+        "timestamp" : "2017-01-01T00:00",
+        "error-code" : [{"$" : "100"}],
+        "description" : "An invalid endpoint has been invoked. Only GET, PUT and DELETE are allowed."
+      }
+    }
+  },
+  
+  "definitions" : {
+    "booking-questionaire" : {
+      "$ref" : "./Impl/Swagger2/booking-questionaire.json"
+    },
+    
+    "fault" : {
+      "$ref" : "../../common/Impl/Swagger2/Fault.json"
+    }
+  
+  }
+
+  
+}
